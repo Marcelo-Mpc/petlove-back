@@ -31,7 +31,6 @@ public class daoUsuarios extends conexaoBd {
 		System.out.println(select);
 		rs = prst.executeQuery();
 		List<Usuario> lista = new ArrayList<Usuario>();
-
 		while (rs.next()) {
 			Usuario user = new Usuario();
 			user.setId(rs.getInt("id"));
@@ -78,23 +77,25 @@ public class daoUsuarios extends conexaoBd {
 
 	public Usuario getUsuario(String email) throws SQLException, ClassNotFoundException {
 		Connection conn = this.criarConexao();
-		String select = "select * from usuarios where email = '" + email+"'";
+		String select = "select * from usuarios where email = '" + email + "'";
 		PreparedStatement prst = conn.prepareStatement(select);
 		ResultSet rs = null;
-		System.out.println(select);
 		rs = prst.executeQuery();
-		rs.next();
-		Usuario user = new Usuario();
-		user.setId(rs.getInt("id"));
-		user.setCidade(rs.getString("cidade"));
-		user.setCpf(rs.getLong("cpf"));
-		user.setEmail(rs.getString("email"));
-		user.setEndereco(rs.getString("endereco"));
-		user.setEstado(rs.getString("estado"));
-		user.setNome(rs.getString("nome"));
-		user.setSenha(rs.getString("senha"));
 
-		return user;
+		while (rs.next()) {
+			Usuario user = new Usuario();
+			user.setId(rs.getInt("id"));
+			user.setCidade(rs.getString("cidade"));
+			user.setCpf(rs.getLong("cpf"));
+			user.setEmail(rs.getString("email"));
+			user.setEndereco(rs.getString("endereco"));
+			user.setEstado(rs.getString("estado"));
+			user.setNome(rs.getString("nome"));
+			user.setSenha(rs.getString("senha"));
+			return user;
+
+		}
+		return null;
 
 	}
 }
