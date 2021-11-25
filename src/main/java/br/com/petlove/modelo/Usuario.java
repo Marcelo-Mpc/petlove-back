@@ -1,10 +1,22 @@
 package br.com.petlove.modelo;
 
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Set;
+import java.util.stream.Collectors;
+
+import br.com.petlove.enums.Perfil;
+
+import javax.persistence.CollectionTable;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -24,6 +36,16 @@ public class Usuario {
 	String endereco;
 	String cidade;
 	String estado;
+	HashSet<Integer> perfis= new HashSet<>();
+	
+	public Set<Perfil> getPerfis() {
+		perfis.add(2);
+		return perfis.stream().map(x -> Perfil.toEnum(x)).collect(Collectors.toSet());
+	}
+	
+	public void addPerfil(Perfil perfil) {
+		perfis.add(perfil.getCod());
+	}
 	public int getId() {
 		return id;
 	}
@@ -43,7 +65,7 @@ public class Usuario {
 		this.email = email;
 	}
 	public String getSenha() {
-		return senha;
+		return (senha);
 	}
 	public void setSenha(String senha) {
 		this.senha = senha;

@@ -78,6 +78,7 @@ public class daoUsuarios extends conexaoBd {
 	public Usuario getUsuario(String email) throws SQLException, ClassNotFoundException {
 		Connection conn = this.criarConexao();
 		String select = "select * from usuarios where email = '" + email + "'";
+		System.out.println(select);
 		PreparedStatement prst = conn.prepareStatement(select);
 		ResultSet rs = null;
 		rs = prst.executeQuery();
@@ -97,5 +98,28 @@ public class daoUsuarios extends conexaoBd {
 		}
 		return null;
 
+	}
+
+	public Usuario getUsuarioUnico(String id) throws ClassNotFoundException, SQLException {
+		Connection conn = this.criarConexao();
+		String select = "select * from usuarios where id = " + id + "";
+		PreparedStatement prst = conn.prepareStatement(select);
+		ResultSet rs = null;
+		rs = prst.executeQuery();
+System.out.println(select);
+		while (rs.next()) {
+			Usuario user = new Usuario();
+			user.setId(rs.getInt("id"));
+			user.setCidade(rs.getString("cidade"));
+			user.setCpf(rs.getLong("cpf"));
+			user.setEmail(rs.getString("email"));
+			user.setEndereco(rs.getString("endereco"));
+			user.setEstado(rs.getString("estado"));
+			user.setNome(rs.getString("nome"));
+			user.setSenha(rs.getString("senha"));
+			return user;
+
+		}
+		return null;
 	}
 }
