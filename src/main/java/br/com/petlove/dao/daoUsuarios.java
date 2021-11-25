@@ -87,7 +87,6 @@ public class daoUsuarios extends conexaoBd {
 			Usuario user = new Usuario();
 			user.setId(rs.getInt("id"));
 			user.setCidade(rs.getString("cidade"));
-			user.setCpf(rs.getLong("cpf"));
 			user.setEmail(rs.getString("email"));
 			user.setEndereco(rs.getString("endereco"));
 			user.setEstado(rs.getString("estado"));

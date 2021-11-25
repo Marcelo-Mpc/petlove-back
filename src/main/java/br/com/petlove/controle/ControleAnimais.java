@@ -40,6 +40,7 @@ public class ControleAnimais {
 	@PostMapping("/animais")
 	public boolean adicionarAnimais(@RequestBody Animal animal) throws ClassNotFoundException, SQLException {
 		daoAnimais dao = new daoAnimais();
+
 		return dao.AdicionarAnimais(animal);
 	}
 

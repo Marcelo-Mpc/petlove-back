@@ -27,6 +27,14 @@ public class Animal {
 	String comportamento;
 	String v10;
 	String raiva;
+	String emailUser;
+	
+	public String getEmailUser() {
+		return emailUser;
+	}
+	public void setEmailUser(String emailUser) {
+		this.emailUser = emailUser;
+	}
 	public int getId() {
 		return id;
 	}

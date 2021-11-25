@@ -18,20 +18,27 @@ public class ControleLogin {
 	@PostMapping("/Login")
 	public boolean login(@RequestBody Login login) {
 		BCryptPasswordEncoder pe = new BCryptPasswordEncoder() ;
-		System.out.println(login.getEmail());
 		daoUsuarios dao = new daoUsuarios();
 		try {
+			
 			Usuario user= dao.getUsuario(login.getEmail());
+			if(user==null) {
+				return false;
+
+			}
 			if(pe.matches(login.getSenha(), user.getSenha())) {
 				
 				return true;
 			}else {
+				return false;
+
 			}
 		} catch (ClassNotFoundException | SQLException e) {
 			e.printStackTrace();
+			return false;
+
 		}
 		
-		return false;
 		
 	}
 	

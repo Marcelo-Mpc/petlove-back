@@ -14,10 +14,10 @@ public class daoAnimais extends conexaoBd {
 	public boolean AdicionarAnimais(Animal animal) throws ClassNotFoundException, SQLException {
 		Connection conn = this.criarConexao();
 		String nome, valor, idCondo, data;
-		String insert = "INSERT INTO `petlove`.`animais`(`nome`,`nascimento`,`raca`,`sexo`,`caracteristicas`,`tamanho`,`comportamento`)VALUES('"
+		String insert = "INSERT INTO `petlove`.`animais`(`nome`,`nascimento`,`raca`,`sexo`,`caracteristicas`,`tamanho`,`comportamento`,emailUser)VALUES('"
 				+ animal.getNome() + "','" + animal.getNascimento() + "','" + animal.getRaca()
 				+ "','" + animal.getSexo() + "','" + animal.getCaracteristicas() + "','"
-				+ animal.getTamanho() + "','" + animal.getComportamento() +"')";
+				+ animal.getTamanho() + "','" + animal.getComportamento() +"','"+animal.getEmailUser()+"')";
 		try {
 			PreparedStatement prst = conn.prepareStatement(insert);
 			System.out.println(insert);
@@ -51,10 +51,9 @@ public class daoAnimais extends conexaoBd {
 			animal.setNascimento(rs.getString("nascimento"));
 			animal.setNome(rs.getString("nome"));
 			animal.setRaca(rs.getString("raca"));
-			animal.setRaiva(rs.getString("raiva"));
 			animal.setSexo(rs.getString("sexo"));
 			animal.setTamanho(rs.getString("tamanho"));
-			animal.setV10(rs.getString("v10"));
+			animal.setEmailUser(rs.getString("emailuser"));
 			lista.add(animal);
 		}
 
