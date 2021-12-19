@@ -11,7 +11,7 @@ import io.jsonwebtoken.SignatureAlgorithm;
 @Component
 public class jwtUtil {
 
-	private String secret = "PalavraChaveToken";
+	private static String secret = "PalavraChaveToken";
 
 	private long expiration =6000000 ;
 
@@ -37,7 +37,7 @@ public class jwtUtil {
 		return false;
 	}
 
-	private Claims getClaims(String token) {
+	private static Claims getClaims(String token) {
 		try {
 			return Jwts.parser().setSigningKey(secret.getBytes()).parseClaimsJws(token).getBody();
 
@@ -46,7 +46,7 @@ public class jwtUtil {
 		}
 	}
 
-	public String getUsername(String token) {
+	public static String getUsername(String token) {
 		Claims claims = getClaims(token);
 		if (claims != null) {
 			return claims.getSubject();

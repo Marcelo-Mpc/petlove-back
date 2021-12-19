@@ -1,6 +1,7 @@
 package br.com.petlove.security;
 
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 import javax.servlet.FilterChain;
@@ -16,6 +17,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import br.com.petlove.dao.daoUsuarios;
 import br.com.petlove.dto.loginDto;
 
 public class jwtAutenticador extends UsernamePasswordAuthenticationFilter {
@@ -55,7 +57,12 @@ public class jwtAutenticador extends UsernamePasswordAuthenticationFilter {
 
 		String username = ((UserSS) auth.getPrincipal()).getUsername();
 		String token = jwtUtil.generateToken(username);
-		
+		daoUsuarios d= new daoUsuarios();
+		try {
+			d.insertSessao(token, username);
+		} catch (ClassNotFoundException | SQLException e) {
+System.out.println(e);			e.printStackTrace();
+		}
 		res.addHeader("Authorization", "Bearer " + token);
 		res.addHeader("access-control-expose-headers", "Authorization");
 	}

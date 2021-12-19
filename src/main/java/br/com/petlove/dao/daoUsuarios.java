@@ -104,21 +104,35 @@ public class daoUsuarios extends conexaoBd {
 		String select = "select * from usuarios where id = " + id + "";
 		PreparedStatement prst = conn.prepareStatement(select);
 		ResultSet rs = null;
-		rs = prst.executeQuery();
-System.out.println(select);
-		while (rs.next()) {
-			Usuario user = new Usuario();
-			user.setId(rs.getInt("id"));
-			user.setCidade(rs.getString("cidade"));
-			user.setCpf(rs.getLong("cpf"));
-			user.setEmail(rs.getString("email"));
-			user.setEndereco(rs.getString("endereco"));
-			user.setEstado(rs.getString("estado"));
-			user.setNome(rs.getString("nome"));
-			user.setSenha(rs.getString("senha"));
-			return user;
-
+		try {
+			rs = prst.executeQuery();
+			System.out.println(select);
+					rs.next();
+						Usuario user = new Usuario();
+						user.setId(rs.getInt("id"));
+						user.setCidade(rs.getString("cidade"));
+						user.setEmail(rs.getString("email"));
+						user.setEndereco(rs.getString("endereco"));
+						user.setEstado(rs.getString("estado"));
+						user.setNome(rs.getString("nome"));
+						user.setSenha(rs.getString("senha"));
+						return user;
+					
+		}catch(Exception e) {
+			System.out.println(e);
 		}
+		
+		
 		return null;
+	}
+	public boolean insertSessao(String token,String user) throws ClassNotFoundException, SQLException {
+		Connection conn = this.criarConexao();
+		String nome, valor, idCondo, data;
+		String insert = "insert sessao(sessao,user) values('"+token+"','"+user+"') ";
+		PreparedStatement prst = conn.prepareStatement(insert);
+		System.out.println(insert);
+		int rs = prst.executeUpdate();
+		return true;
+		
 	}
 }

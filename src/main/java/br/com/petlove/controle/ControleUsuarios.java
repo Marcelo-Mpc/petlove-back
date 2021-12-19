@@ -3,6 +3,7 @@ package br.com.petlove.controle;
 import java.sql.SQLException;
 import java.util.List;
 
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,6 +21,7 @@ import br.com.petlove.modelo.Login;
 import br.com.petlove.modelo.Usuario;
 import br.com.petlove.repositorio.UsuarioRepositorio;
 import br.com.petlove.security.UserSS;
+import br.com.petlove.security.jwtUtil;
 import br.com.petlove.services.UserService;
 import lombok.AllArgsConstructor;
 
@@ -44,7 +46,8 @@ public class ControleUsuarios {
 		if(user==null||!user.hashRole(Perfil.ADMIN) && id.equals(user.getID())) {
 			throw new AuthorizationException("Acesso Negado");
 		}
-		return dao.getUsuarioUnico(id.toString());
+		System.out.println(id);
+		return dao.getUsuarioUnico(id);
 	}
 	@DeleteMapping("/usuarios/{id}")
 	public boolean deleteUsuario(@PathVariable Integer id) throws ClassNotFoundException, SQLException {
@@ -68,5 +71,15 @@ public class ControleUsuarios {
 
 		return dao.updateUsuario(usuario);
 
+	}
+	
+	public Usuario userToken() {
+		
+		return (Usuario) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		
+	}
+	public String x() {
+		Usuario user=this.userToken();
+		return user.getEmail();
 	}
 }

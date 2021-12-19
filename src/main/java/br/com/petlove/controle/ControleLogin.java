@@ -10,32 +10,34 @@ import org.springframework.web.bind.annotation.RestController;
 import br.com.petlove.dao.daoUsuarios;
 import br.com.petlove.modelo.Login;
 import br.com.petlove.modelo.Usuario;
+import br.com.petlove.security.jwtUtil;
 import lombok.AllArgsConstructor;
 
 @RestController
 @AllArgsConstructor
 public class ControleLogin {
 	@PostMapping("/Login")
-	public boolean login(@RequestBody Login login) {
+	public String login(@RequestBody Login login) {
 		BCryptPasswordEncoder pe = new BCryptPasswordEncoder() ;
 		daoUsuarios dao = new daoUsuarios();
 		try {
 			
 			Usuario user= dao.getUsuario(login.getEmail());
 			if(user==null) {
-				return false;
+				return "Email ou senha inválido";
 
 			}
 			if(pe.matches(login.getSenha(), user.getSenha())) {
+				jwtUtil x= new jwtUtil();
 				
-				return true;
+				return x.generateToken(login.getEmail());
 			}else {
-				return false;
+				return "Email ou senha inválido";
 
 			}
 		} catch (ClassNotFoundException | SQLException e) {
 			e.printStackTrace();
-			return false;
+			return "Email ou senha inválido";
 
 		}
 		

@@ -18,23 +18,17 @@ public class Animal {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	 int id;
 	String nome;
-	String nascimento;
+	String idade;
+	String tempo;
 	String raca;
-	String sexo;
-	String cor;
 	String caracteristicas;
+	String especie;
+	String sexo;
 	String tamanho;
 	String comportamento;
-	String v10;
-	String raiva;
-	String emailUser;
-	
-	public String getEmailUser() {
-		return emailUser;
-	}
-	public void setEmailUser(String emailUser) {
-		this.emailUser = emailUser;
-	}
+	String imagem;
+	String user;
+	String status;
 	public int getId() {
 		return id;
 	}
@@ -47,11 +41,17 @@ public class Animal {
 	public void setNome(String nome) {
 		this.nome = nome;
 	}
-	public String getNascimento() {
-		return nascimento;
+	public String getIdade() {
+		return idade;
 	}
-	public void setNascimento(String nascimento) {
-		this.nascimento = nascimento;
+	public void setIdade(String idade) {
+		this.idade = idade;
+	}
+	public String getTempo() {
+		return tempo;
+	}
+	public void setTempo(String tempo) {
+		this.tempo = tempo;
 	}
 	public String getRaca() {
 		return raca;
@@ -59,23 +59,23 @@ public class Animal {
 	public void setRaca(String raca) {
 		this.raca = raca;
 	}
-	public String getSexo() {
-		return sexo;
-	}
-	public void setSexo(String sexo) {
-		this.sexo = sexo;
-	}
-	public String getCor() {
-		return cor;
-	}
-	public void setCor(String cor) {
-		this.cor = cor;
-	}
 	public String getCaracteristicas() {
 		return caracteristicas;
 	}
 	public void setCaracteristicas(String caracteristicas) {
 		this.caracteristicas = caracteristicas;
+	}
+	public String getEspecie() {
+		return especie;
+	}
+	public void setEspecie(String especie) {
+		this.especie = especie;
+	}
+	public String getSexo() {
+		return sexo;
+	}
+	public void setSexo(String sexo) {
+		this.sexo = sexo;
 	}
 	public String getTamanho() {
 		return tamanho;
@@ -89,17 +89,24 @@ public class Animal {
 	public void setComportamento(String comportamento) {
 		this.comportamento = comportamento;
 	}
-	public String getV10() {
-		return v10;
+	public String getImagem() {
+		return imagem;
 	}
-	public void setV10(String v10) {
-		this.v10 = v10;
+	public void setImagem(String imagem) {
+		this.imagem = imagem;
 	}
-	public String getRaiva() {
-		return raiva;
+	public String getUser() {
+		return user;
 	}
-	public void setRaiva(String raiva) {
-		this.raiva = raiva;
+	public void setUser(String user) {
+		this.user = user;
 	}
+	public String getStatus() {
+		return status;
+	}
+	public void setStatus(String status) {
+		this.status = status;
+	}
+	
 	
 }

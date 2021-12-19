@@ -14,10 +14,12 @@ public class daoAnimais extends conexaoBd {
 	public boolean AdicionarAnimais(Animal animal) throws ClassNotFoundException, SQLException {
 		Connection conn = this.criarConexao();
 		String nome, valor, idCondo, data;
-		String insert = "INSERT INTO `petlove`.`animais`(`nome`,`nascimento`,`raca`,`sexo`,`caracteristicas`,`tamanho`,`comportamento`,emailUser)VALUES('"
-				+ animal.getNome() + "','" + animal.getNascimento() + "','" + animal.getRaca()
-				+ "','" + animal.getSexo() + "','" + animal.getCaracteristicas() + "','"
-				+ animal.getTamanho() + "','" + animal.getComportamento() +"','"+animal.getEmailUser()+"')";
+		String insert =" INSERT INTO `petlove`.`animais`"+
+				"(`nome`,`idade`,`tempo`,`raca`,`caracteristicas`,`especie`,`sexo`,`comportamento`,"
+				+ "`imagem`,`status`)VALUES('"+animal.getNome()+"','"+animal.getIdade()+"','"+animal.getTempo()+"','"+animal.getRaca()+"','"+animal.getCaracteristicas()+"',"
+				+ "'"+animal.getEspecie()+"','"+animal.getSexo()+"','"+animal.getComportamento()+"','"+animal.getImagem()+"','"+animal.getStatus()+"')";
+				System.out.println(insert);
+
 		try {
 			PreparedStatement prst = conn.prepareStatement(insert);
 			System.out.println(insert);
@@ -44,20 +46,48 @@ public class daoAnimais extends conexaoBd {
 
 		while (rs.next()) {
 			Animal animal = new Animal();
-			animal.setCaracteristicas(rs.getString("caracteristicas"));
-			animal.setComportamento(rs.getString("comportamento"));
-			animal.setCor(rs.getString("cor"));
 			animal.setId(rs.getInt("id"));
-			animal.setNascimento(rs.getString("nascimento"));
 			animal.setNome(rs.getString("nome"));
+			animal.setIdade((rs.getString("idade")));
+			animal.setTempo(rs.getString("tempo"));
 			animal.setRaca(rs.getString("raca"));
+			animal.setCaracteristicas(rs.getString("caracteristicas"));
+			animal.setEspecie(rs.getString("especie"));
 			animal.setSexo(rs.getString("sexo"));
 			animal.setTamanho(rs.getString("tamanho"));
-			animal.setEmailUser(rs.getString("emailuser"));
+			animal.setComportamento(rs.getString("comportamento"));
+			animal.setImagem(rs.getString("imagem"));
+
 			lista.add(animal);
 		}
 
 		return lista;
+
+	}
+	public Animal AnimailUnico(String id) throws SQLException, ClassNotFoundException {
+		Connection conn = this.criarConexao();
+		String select = "select * from Animais where id like " +id;
+		PreparedStatement prst = conn.prepareStatement(select);
+		ResultSet rs = null;
+		System.out.println(select);
+		rs = prst.executeQuery();
+
+		rs.next();
+			Animal animal = new Animal();
+			animal.setId(rs.getInt("id"));
+			animal.setNome(rs.getString("nome"));
+			animal.setIdade((rs.getString("idade")));
+			animal.setTempo(rs.getString("tempo"));
+			animal.setRaca(rs.getString("raca"));
+			animal.setCaracteristicas(rs.getString("caracteristicas"));
+			animal.setEspecie(rs.getString("especie"));
+			animal.setSexo(rs.getString("sexo"));
+			animal.setTamanho(rs.getString("tamanho"));
+			animal.setComportamento(rs.getString("comportamento"));
+			animal.setImagem(rs.getString("imagem"));
+
+
+		return animal;
 
 	}
 
@@ -71,7 +101,7 @@ public class daoAnimais extends conexaoBd {
 		return rs;
 	}
 
-	public boolean updateAnimal(Animal animal) throws ClassNotFoundException, SQLException {
+	/*public boolean updateAnimal(Animal animal) throws ClassNotFoundException, SQLException {
 		Connection conn = this.criarConexao();
 		String update = "UPDATE `petlove`.`animais`SET `id` = " + animal.getId() + ",`nome` =' " + animal.getNome()
 				+ "',`nascimento` = '" + animal.getNascimento() + "',`raca` ='" + animal.getRaca() + "',`sexo` ='"
@@ -88,5 +118,5 @@ public class daoAnimais extends conexaoBd {
 
 		return true;
 
-	}
+	}*/
 }

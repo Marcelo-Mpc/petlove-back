@@ -30,7 +30,8 @@ private static final String[] PUBLIC_MATCHERS = {
 "/Contato/**",
 "/animais/**",
 "/usuarios/**",
-"/Login/**"
+"/Login/**",
+"/adotar/**"
 
 };
 private static final String[] PUBLIC_MATCHERS_GET = {
@@ -41,7 +42,8 @@ private static final String[] PUBLIC_MATCHERS_GET = {
 "/Contato/**",
 "/animais/**",
 "/usuarios/**",
-"/Login/**"
+"/Login/**",
+"/adotar/**"
 
 
 };
